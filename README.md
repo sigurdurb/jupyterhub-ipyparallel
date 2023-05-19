@@ -56,7 +56,29 @@ Install most recent ipython and ipyparallel, notebook and jupyter_server
 Install widgetsnbextension and have this in notebook `!jupyter nbextension enable --py widgetsnbextension`, or enable on terminal:`jupyter nbextension enable --py widgetsnbextension` `
 
 #### Starting cluster:
-Through the IPython clusters tab
+1. Through the IPython clusters tab
+2. In a terminal
+
+<details>
+    <summary>Sample of starting 3 engines in terminal</summary>
+
+```
+sigurdur14@jupyter:~$ ipcluster start -n 3 --profile jotunn
+2023-05-19 19:14:11.230 [IPClusterStart] Starting ipcluster with [daemonize=False]
+2023-05-19 19:14:13.136 [IPClusterStart] Running `/home/sigurdur14/launch-python-for-ipy-ssh -m ipyparallel.controller`
+2023-05-19 19:14:13.420 [IPClusterStart] fetching /home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-client.json from jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-client.json
+2023-05-19 19:14:13.950 [IPClusterStart] fetching /home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-engine.json from jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-engine.json
+2023-05-19 19:14:15.520 [IPClusterStart] Starting 3 engines with <class 'ipyparallel.cluster.launcher.SSHProxyEngineSetLauncher'>
+2023-05-19 19:14:17.331 [IPClusterStart] ensuring remote jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ exists
+2023-05-19 19:14:17.606 [IPClusterStart] sending /home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-client.json to jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-client.json
+2023-05-19 19:14:17.889 [IPClusterStart] ensuring remote jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ exists
+2023-05-19 19:14:18.161 [IPClusterStart] sending /home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-engine.json to jotunn.rhi.hi.is:/home/sigurdur14/.ipython/profile_jotunn/security/ipcontroller-engine.json
+2023-05-19 19:14:18.434 [IPClusterStart] Running `/home/sigurdur14/launch-python-for-ipy-ssh -m ipyparallel.cluster engines -n 3 --profile-dir /home/sigurdur14/.ipython/profile_jotunn --cluster-id '' --engines mpi`
+2023-05-19 19:14:48.736 [IPClusterStart] Engines appear to have started successfully
+```
+
+</details>
+
 Log for starting on RU Jupyterhub are available for root with command `less +G /var/log/jupyterhub/rupyter.log`
 but can also be started on terminal `ipcluster start -n 4 --profile jotunn`
 
