@@ -71,7 +71,6 @@ If your Jupyterhub username is not the same as on Jötunn,
 you need to add username to sshserver or you get a Timeout `cli = ipp.Client(profile='jotunn', sshserver='sigurdur14@jotunn.rhi.hi.is')`
 
 
-
 ## Current issues:
 
 ### Issue 1: (This is resolved by just using the Client(sshserver=...))
