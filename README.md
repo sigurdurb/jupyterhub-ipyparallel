@@ -1,9 +1,6 @@
 # jupyterhub-ipyparallel
 Setup and report for setting up Jupyterhub with ipyparallel. 
 
-Logs for starting on RU Jupyterhub are available for root with command `less +G /var/log/jupyterhub/rupyter.log`
-but can also be started with ipcluster start -n 4 --profile jotunn
-
 
 ## Setup
 
@@ -27,7 +24,8 @@ Jupyterhub:
   and engines on `remote` via `sshproxy` with `--engines=mpi`
 
 On Jötunn:
-`module load python/3.6.1` 
+
+* `module load python/3.6.1` 
 * `pip3 install --user jotunn_python_requirements.txt` (for the demo) 
 * Set the script: `launch-python-for-ipy-ssh` somewhere on the cluster, for example in the /opt/ folder or where you have python or other config files. This will load the required modules and tell python where it is. The `bash -l` creates a login shell so bashrc files, bash_profile, etc. will be sourced.
 * Depending on where you put the script , change the path_to_remote_python_script in the ipcluster_config.py
@@ -42,7 +40,7 @@ The only issue here is that the python install on Jötunn could be better, it wo
 On Jupyterhub:
 
 * Create ssh keys for host jotunn.rhi.hi.is: 
-If username is not the same, include username@jotunn.rhi.hi.is
+If username is not the same, include `<username>@jotunn.rhi.hi.is`
 ```bash
 ssh-keygen -f ~/.ssh/id_ecdsa -t ecdsa -b 521 -q -N ""
 ssh-copy-id -i ~/.ssh/id_ecdsa jotunn.rhi.hi.is
@@ -53,11 +51,16 @@ sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 ```
 
 * Move the `ipcluster_config.py` from this repo to `~/.ipython/profile_jotunn/ipcluster_config.py`
+the ipcluster_config.py might need to be configured for the remote python bash script and if the remote user directory and username differ from the local environment. But in Jupyterhub and Jötunn they are the same, both under `/home/<username>`
 
 For most recent magics and MPI functionality:
 Install most recent ipython and ipyparallel, notebook and jupyter server
 Install widgetsnbextension and have this in notebook `!jupyter nbextension enable --py widgetsnbextension`, or terminal:`jupyter nbextension enable --py widgetsnbextension` `
 
+#### Starting cluster:
+Through the IPython clusters tab
+Logs for starting on RU Jupyterhub are available for root with command `less +G /var/log/jupyterhub/rupyter.log`
+but can also be started on terminal `ipcluster start -n 4 --profile jotunn`
 
 ## Connecting to Views
 ```python
