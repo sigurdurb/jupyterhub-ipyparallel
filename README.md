@@ -61,7 +61,7 @@ Log for starting on RU Jupyterhub are available for root with command `less +G /
 but can also be started on terminal `ipcluster start -n 4 --profile jotunn`
 
 ## Connecting to Views (direct view, loadbalanced view, broadcast view)
-A view provides access to a subset of the engines available to the client. Jobs are submitted to the engines via the view. A direct view allows the user to explicitly send work specific engines. The load balanced view is like the `Pool` object in `multiprocessing`, and manages the scheduling and distribution of jobs for you. The Broadcast view is the newest addition and the fastest way to send tasks as it is O(1) while Direct view is O(N)
+A view provides access to a subset of the engines available to the client. Jobs are submitted to the engines via the view. A direct view allows the user to explicitly send work specific engines. The load balanced view is like the `Pool` object in `multiprocessing`, and manages the scheduling and distribution of jobs for you. [The Broadcast view](https://ipyparallel.readthedocs.io/en/latest/examples/broadcast/Broadcast%20view.html) is the newest addition and the fastest way to send tasks as it is O(1) while Direct view is O(N)
 
 ```python
 # After a cluster is started use the Client to connect to the engines
@@ -117,7 +117,7 @@ yields in the following error meaning there are some package inconsistencies on 
 
 TypeError: code() takes at most 15 arguments (16 given)
 ```
-But importing numpy or running something else without sync_imports() works fine. But there is also inconsistency in python3.6 can't install the lastest numpy so setting up a parallel demo for that did not work as intended.
+But importing numpy or running something else without sync_imports() works fine. But there is also inconsistency that python3.6 can't install the lastest numpy so setting up a parallel demo for that did not work as intended.
 
 We can import numpy and other things for example in a %px direct view cell. 
 %px in a cell is a shortcut to [`DirectView.execute()`](https://ipyparallel.readthedocs.io/en/latest/api/ipyparallel.html#ipyparallel.DirectView.execute "ipyparallel.DirectView.execute") and [`AsyncResult.display_outputs()`](https://ipyparallel.readthedocs.io/en/latest/api/ipyparallel.html#ipyparallel.AsyncResult.display_outputs "ipyparallel.AsyncResult.display_outputs") methods respectively.
