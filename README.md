@@ -22,7 +22,8 @@ The only issue here is that the python install on Jötunn could be better, it wo
 
 
 On Jupyterhub:
-Create ssh keys for host jotunn.rhi.hi.is: 
+
+* Create ssh keys for host jotunn.rhi.hi.is: 
 If username is not the same, include username@jotunn.rhi.hi.is
 ```
 ssh-keygen -f ~/.ssh/id_ecdsa -t ecdsa -b 521 -q -N ""
@@ -32,8 +33,10 @@ ssh-copy-id -i ~/.ssh/id_ecdsa jotunn.rhi.hi.is
 sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 ```
 
+* Move the `ipcluster_config.py` from this repo to `~/.ipython/profile_jotunn/ipcluster_config.py`
+
 For most recent magics and MPI functionality:
-Intall most recent ipython and ipyparallel, notebook and jupyter server
+Install most recent ipython and ipyparallel, notebook and jupyter server
 Install widgetsnbextension and have this in notebook `!jupyter nbextension enable --py widgetsnbextension`, or terminal:`jupyter nbextension enable --py widgetsnbextension` `
 
 
