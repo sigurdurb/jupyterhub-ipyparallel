@@ -11,10 +11,9 @@ There are two 'machines':
 
 Jötunn:
 
-- runs as an ssh server
-- has a user `demo` with password `whocares`
-- has python packages `ipyparallel, mpi4py` 
-- loads modules for openmpi or python has openmpi package
+- has ssh login for <username> with password
+- has python packages `ipyparallel, mpi4py` and openmpi
+- ssh login script loads modules for openmpi and python
 
 Jupyterhub:
 - runs a notebook server that spawns notebooks
@@ -23,18 +22,16 @@ Jupyterhub:
   configured to start the controller on `remote` via `ssh`,
   and engines on `remote` via `sshproxy` with `--engines=mpi`
 
-On Jötunn:
+Setup on Jötunn:
 
 * `module load python/3.6.1` 
-* `pip3 install --user jotunn_python_requirements.txt` (for the demo) 
+* `pip3 install --user jotunn_python_requirements.txt`
 * Set the script: `launch-python-for-ipy-ssh` somewhere on the cluster, for example in the /opt/ folder or where you have python or other config files. This will load the required modules and tell python where it is. The `bash -l` creates a login shell so bashrc files, bash_profile, etc. will be sourced.
 * Depending on where you put the script , change the path_to_remote_python_script in the ipcluster_config.py
-* If the script name is changed, name of script in ipcluster_config.py needs to be changed. 
+* If the script name `launch-python-for-ipy-ssh` is changed, name of the script in ipcluster_config.py needs to be changed. 
 For our example we are telling our controller to run the machines with mpi_exec, and that is why we are loading that in the script.
 
-
-The only issue here is that the python install on Jötunn could be better, it would need to be have all the things you need to do or one should be able to install it. 
-
+The only issue here is that the python install on Jötunn could be better. An ideal setup would have all the newest things(I could not update IPython and pip3 for example without other errors surfacing).
 
 
 On Jupyterhub:
@@ -45,7 +42,8 @@ If username is not the same, include `<username>@jotunn.rhi.hi.is`
 ssh-keygen -f ~/.ssh/id_ecdsa -t ecdsa -b 521 -q -N ""
 ssh-copy-id -i ~/.ssh/id_ecdsa jotunn.rhi.hi.is
 ```
-You will be prompted to enter the password for your `<username> on jotunn.rhi.hi.is`, if it is different then on local Jupyterhub, add `<username>@jotunn.rhi.hi.is`
+You will be prompted to enter the password for your `<username> on jotunn.rhi.hi.is`.
+
 ```bash
 sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 ```
@@ -54,15 +52,17 @@ sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 the ipcluster_config.py might need to be configured for the remote python bash script and if the remote user directory and username differ from the local environment. But in Jupyterhub and Jötunn they are the same, both under `/home/<username>`
 
 For most recent magics and MPI functionality:
-Install most recent ipython and ipyparallel, notebook and jupyter server
-Install widgetsnbextension and have this in notebook `!jupyter nbextension enable --py widgetsnbextension`, or terminal:`jupyter nbextension enable --py widgetsnbextension` `
+Install most recent ipython and ipyparallel, notebook and jupyter_server
+Install widgetsnbextension and have this in notebook `!jupyter nbextension enable --py widgetsnbextension`, or enable on terminal:`jupyter nbextension enable --py widgetsnbextension` `
 
 #### Starting cluster:
 Through the IPython clusters tab
-Logs for starting on RU Jupyterhub are available for root with command `less +G /var/log/jupyterhub/rupyter.log`
+Log for starting on RU Jupyterhub are available for root with command `less +G /var/log/jupyterhub/rupyter.log`
 but can also be started on terminal `ipcluster start -n 4 --profile jotunn`
 
-## Connecting to Views
+## Connecting to Views (direct view, loadbalanced view, broadcast view)
+A view provides access to a subset of the engines available to the client. Jobs are submitted to the engines via the view. A direct view allows the user to explicitly send work specific engines. The load balanced view is like the `Pool` object in `multiprocessing`, and manages the scheduling and distribution of jobs for you. The Broadcast view is the newest addition and the fastest way to send tasks as it is O(1) while Direct view is O(N)
+
 ```python
 # After a cluster is started use the Client to connect to the engines
 
