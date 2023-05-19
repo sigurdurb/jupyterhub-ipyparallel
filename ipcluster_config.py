@@ -1,5 +1,5 @@
 # Configuration file for ipcluster.
-
+import os
 c = get_config()  #noqa
 c.Cluster.controller_launcher_class = "ssh"
 # the host to ssh to
