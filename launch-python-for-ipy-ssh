@@ -1,0 +1,7 @@
+#!/bin/bash -l
+
+module load python/3.6.1
+module load gnu
+module load openmpi/gnu
+
+exec python3 "$@"
