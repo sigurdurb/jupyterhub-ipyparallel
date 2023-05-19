@@ -39,18 +39,16 @@ The only issue here is that the python install on Jötunn could be better, it wo
 
 
 
-
-
 On Jupyterhub:
 
 * Create ssh keys for host jotunn.rhi.hi.is: 
 If username is not the same, include username@jotunn.rhi.hi.is
-```
+```bash
 ssh-keygen -f ~/.ssh/id_ecdsa -t ecdsa -b 521 -q -N ""
 ssh-copy-id -i ~/.ssh/id_ecdsa jotunn.rhi.hi.is
 ```
 You will be prompted to enter the password for your `<username> on jotunn.rhi.hi.is`, if it is different then on local Jupyterhub, add `<username>@jotunn.rhi.hi.is`
-```
+```bash
 sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 ```
 
@@ -62,7 +60,7 @@ Install widgetsnbextension and have this in notebook `!jupyter nbextension enabl
 
 
 ## Connecting to Views
-```
+```python
 # After a cluster is started use the Client to connect to the engines
 
 import ipyparallel as ipp
@@ -78,9 +76,14 @@ you need to add username to sshserver or you get a Timeout `cli = ipp.Client(pro
 
 ### Issue 1: (This is resolved by just using the Client(sshserver=...))
 Using the cluster command in code 
-```
+```python
 # Starting Cluster with 4 engines
 rc = ipp.Cluster(n=4, profile="jotunn", timeout=20).start_and_connect_sync()
+```
+or 
+```python
+cluster = ipp.Cluster.from_file(profile="remotempi")
+rc = cluster.connect_client_sync()
 ```
 to connect and start usually results in a TimeoutError with the following error(not full output):
 ```
@@ -96,7 +99,7 @@ TimeoutError: Hub connection request timed out
 
 ### Issue 2 (with Jötunn)
 Running sync_imports or apply_sync()
-```
+```python
 bc = cli.broadcast_view()
 with bc.sync_imports(): 
     import numpy
