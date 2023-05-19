@@ -6,6 +6,26 @@ but can also be started with ipcluster start -n 4 --profile jotunn
 
 
 ## Setup
+
+There are two 'machines':
+
+- 'Jötunn' where the controller will run and engines in mpi, and
+- 'Jupyterhub' where it spawns user notebooks for users and the cluster will be started and communicated with through the client
+
+Jötunn:
+
+- runs as an ssh server
+- has a user `demo` with password `whocares`
+- has python packages `ipyparallel, mpi4py` 
+- loads modules for openmpi or python has openmpi package
+
+Jupyterhub:
+- runs a notebook server that spawns notebooks
+- has packages `ipyparallel, jupyter_server`
+- has a user `<username>` with profile `jotunn`,
+  configured to start the controller on `remote` via `ssh`,
+  and engines on `remote` via `sshproxy` with `--engines=mpi`
+
 On Jötunn:
 `module load python/3.6.1` 
 * `pip3 install --user jotunn_python_requirements.txt` (for the demo) 
@@ -29,6 +49,7 @@ If username is not the same, include username@jotunn.rhi.hi.is
 ssh-keygen -f ~/.ssh/id_ecdsa -t ecdsa -b 521 -q -N ""
 ssh-copy-id -i ~/.ssh/id_ecdsa jotunn.rhi.hi.is
 ```
+You will be prompted to enter the password for your `<username> on jotunn.rhi.hi.is`, if it is different then on local Jupyterhub, add `<username>@jotunn.rhi.hi.is`
 ```
 sigurdur14@jupyter:~$ ipython profile create --parallel jotunn
 ```
