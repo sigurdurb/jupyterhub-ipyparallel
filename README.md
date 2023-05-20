@@ -106,7 +106,7 @@ rc = ipp.Cluster(n=4, profile="jotunn", timeout=20).start_and_connect_sync()
 ```
 or 
 ```python
-cluster = ipp.Cluster.from_file(profile="remotempi")
+cluster = ipp.Cluster.from_file(profile="jotunn")
 rc = cluster.connect_client_sync()
 ```
 to connect and start usually results in a TimeoutError with the following error(not full output):
