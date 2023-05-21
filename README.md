@@ -3,15 +3,15 @@ Setup and report for setting up Jupyterhub with ipyparallel.
 
 
 ## Setup
+For this setup I took some helpful tips on [this post on the Jupyter discourse](https://discourse.jupyter.org/t/ipython-cluster-tab-create-a-new-profile/18593)
 
 There are two 'machines':
 
 - 'Jötunn' where the controller will run and engines in mpi, and
-- 'Jupyterhub' where it spawns user notebooks for users and the cluster will be started and communicated with through the client
+- 'Jupyterhub' where it spawns user notebooks and the cluster will be started and communicated with through the client
 
 Jötunn:
-
-- has ssh login for <username> with password
+- has ssh login for <username> with password and keys
 - has python packages `ipyparallel, mpi4py` and openmpi
 - ssh login script loads modules for openmpi and python
 
