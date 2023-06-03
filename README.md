@@ -1,9 +1,13 @@
 # jupyterhub-ipyparallel
 Setup and report for setting up Jupyterhub with ipyparallel. 
 
+## Example
+
+Starting a cluster from IPython Clusters tab, viewing Jupyterhub log and running the [jotunn_demo](jotunn_demo.ipynb) notebook.
+![Jupyterhub IPyparallel demo](Jupyterhub_IPyparallel_Demo.mp4)
 
 ## Setup
-For this setup I took some helpful tips on [this post on the Jupyter discourse](https://discourse.jupyter.org/t/ipython-cluster-tab-create-a-new-profile/18593)
+I found some helpfult tips for this setup on [this post on the Jupyter discourse](https://discourse.jupyter.org/t/ipython-cluster-tab-create-a-new-profile/18593)
 
 There are two 'machines':
 
