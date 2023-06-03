@@ -4,6 +4,7 @@ Setup and report for setting up Jupyterhub with ipyparallel.
 ## Example
 
 Starting a cluster from IPython Clusters tab, viewing Jupyterhub log and running the [jotunn_demo](jotunn_demo.ipynb) notebook.
+There is also an .mp4 version for download: [demo in .mp4](Jupyterhub_IPyparallel_Demo.mp4)
 
 ![JupyterhubIpyparallel_demo3](https://github.com/sigurdurb/jupyterhub-ipyparallel/assets/10588202/0606882a-ceb4-46ad-95eb-a4aabc3c42f0)
 
